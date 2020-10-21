@@ -1,0 +1,13 @@
+/* Screens */
+body {
+  background-color: grey;
+}
+
+h1 {
+  color: red;
+  transition-property: color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/*# sourceMappingURL=/style.ff1c4cab.css.map */

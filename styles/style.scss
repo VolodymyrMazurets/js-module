@@ -1,6 +1,9 @@
+@import './core/mixins';
+
 body {
     background-color:grey;
 }
 h1 {
     color: red;
+    @include transition(color);
 }
