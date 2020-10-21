@@ -1,1 +1,0 @@
-{"version":3,"sources":["styles/style.scss"],"names":[],"mappings":"AAAA;EACI;;;AAEJ;EACI","file":"style.ff1c4cab.css","sourceRoot":"..","sourcesContent":["body {\n    background-color:grey;\n}\nh1 {\n    color: red;\n}"]}
