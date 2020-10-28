@@ -10,10 +10,30 @@
 <script src="/style.ff1c4cab.js"></script></head>
 
 <body>
-    <h1 id="test">title</h1>
+    <div class="uk-tile uk-tile-primary uk-text-center">
+        <h1 class="uk-h1">My Todo List</h1>
+    </div>
+    <div class="uk-container">
+        <form style="padding: 32px 0;" id="form" name="todo-form">
+            <fieldset class="uk-fieldset">
 
-    <div id="cards" class="uk-container">
+                <legend class="uk-legend">Create your todo</legend>
+
+                <div class="uk-margin">
+                    <input class="uk-input" type="text" placeholder="Todo name" name="title" id="title">
+                </div>
+
+                <div class="uk-margin">
+                    <textarea class="uk-textarea" rows="5" placeholder="Todo description" name="description" id="description"></textarea>
+                </div>
+
+                <button type="submit" class="uk-button uk-button-primary" id="create-todo">Create todo</button>
+            </fieldset>
+        </form>
+        <div id="todos"></div>
         
+        <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" id="cards" uk-grid="">
+        </div>
     </div>
 
 

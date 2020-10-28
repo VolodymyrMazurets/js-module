@@ -1,13 +1,6 @@
 /* Screens */
-body {
-  background-color: grey;
-}
-
-h1 {
-  color: red;
-  transition-property: color;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
+.todo-input[type=checkbox]:checked + label {
+  text-decoration: line-through;
 }
 
 /*# sourceMappingURL=/style.ff1c4cab.css.map */
