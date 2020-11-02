@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "parcel index.html --open",
     "dev": "parcel index.html --open",
+    "dev:classes": "parcel index.html classes.html --open",
     "start": "parcel index.html --open",
     "build": "parcel build index.html --no-source-maps --no-cache"
   },
