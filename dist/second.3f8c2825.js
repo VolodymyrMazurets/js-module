@@ -117,9 +117,117 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/second.js":[function(require,module,exports) {
-console.log('second');
-},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"js/http/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.urls = exports.BASE_URL = void 0;
+const BASE_URL = 'https://jsonplaceholder.typicode.com';
+exports.BASE_URL = BASE_URL;
+const urls = {
+  posts: `${BASE_URL}/posts`
+};
+exports.urls = urls;
+},{}],"js/second.js":[function(require,module,exports) {
+"use strict";
+
+var _http = require("./http");
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+const list = document.getElementById("list");
+const input = document.getElementById("input");
+const textarea = document.getElementById("textarea");
+const form = document.getElementById("form");
+form.addEventListener("submit", (() => {
+  var _ref = _asyncToGenerator(function* (e) {
+    e.preventDefault();
+
+    try {
+      const formData = {
+        title: input.value,
+        body: textarea.value,
+        userId: 1
+      }; // const formData = new FormData();
+      // formData.append('title', input.value);
+      // formData.append('body', textarea.value);
+      // formData.append('userId', 1);
+
+      const res = yield fetch(_http.urls.posts, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }).then(function (response) {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error(`Error code ${response.status}`);
+        }
+      });
+      input.value = "";
+      textarea.value = "";
+      UIkit.notification({
+        message: res,
+        status: "success"
+      });
+    } catch (error) {
+      UIkit.notification({
+        message: error,
+        status: "danger"
+      });
+    }
+  });
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})());
+
+const renderList = data => {
+  data.map(({
+    id,
+    title,
+    body: text
+  }) => {
+    const listItem = document.createElement("li");
+    listItem.innerHTML = `<h2>${title}</h2><span>${text}</span>`;
+    listItem.innerHTML += `<span> - ${id}</span>`;
+    list.appendChild(listItem);
+  });
+};
+
+const getData = (() => {
+  var _ref2 = _asyncToGenerator(function* () {
+    try {
+      const res = yield fetch(_http.urls.posts);
+      const parsedRes = yield res.json();
+      UIkit.notification({
+        message: "Data loaded successfuly",
+        status: "success"
+      });
+      return parsedRes;
+    } catch (error) {
+      UIkit.notification({
+        message: error,
+        status: "danger"
+      });
+    }
+  });
+
+  return function getData() {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+document.addEventListener("DOMContentLoaded", _asyncToGenerator(function* () {
+  const DATA = yield getData();
+  renderList(DATA || []);
+}));
+},{"./http":"js/http/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +255,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57890" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64171" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

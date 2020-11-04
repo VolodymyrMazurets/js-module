@@ -1,4 +1,9 @@
+import 'uikit/dist/css/uikit.min.css';
+import './styles/style.scss';
+
+import UiKit from 'uikit'
 import _ from "lodash";
+
 (function () {
   const findElement = (element) => document.getElementById(element);
 
@@ -59,6 +64,7 @@ import _ from "lodash";
     textarea.value = "";
     updateTodos();
     renderTodosList();
+    UiKit.notification({message: 'Todo was created'});
   };
 
   document.addEventListener("DOMContentLoaded", () => {

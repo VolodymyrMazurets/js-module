@@ -6,9 +6,9 @@
   "scripts": {
     "serve": "parcel index.html --open",
     "dev": "parcel index.html --open",
-    "dev:classes": "parcel index.html classes.html --open",
+    "dev:all": "parcel index.html classes.html slick.html --open",
     "start": "parcel index.html --open",
-    "build": "parcel build index.html classes.html --no-source-maps --no-cache"
+    "build": "parcel build index.html classes.html slick.html --no-source-maps --no-cache"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
@@ -28,6 +28,9 @@
     "last 1 Chrome version"
   ],
   "dependencies": {
-    "lodash": "^4.17.20"
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "slick-carousel": "^1.8.1",
+    "uikit": "^3.5.9"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "host": "https://jsonplaceholder.typicode.com",
+      "api": "https://jsonplaceholder.typicode.com"
+    }
+  }
+}
