@@ -123,13 +123,20 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.urls = exports.BASE_URL = void 0;
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+exports.coctailsUrls = exports.urls = exports.BASE_URL = void 0;
+const BASE_URL = "https://jsonplaceholder.typicode.com";
 exports.BASE_URL = BASE_URL;
+const BASE_COCTAILS_URL = "https://www.thecocktaildb.com/api/json/v1";
+const api_key = '1';
 const urls = {
   posts: `${BASE_URL}/posts`
 };
 exports.urls = urls;
+const coctailsUrls = {
+  random: `${BASE_COCTAILS_URL}/${api_key}/random.php`,
+  search: `${BASE_COCTAILS_URL}/${api_key}/search.php`
+};
+exports.coctailsUrls = coctailsUrls;
 },{}],"js/second.js":[function(require,module,exports) {
 "use strict";
 
@@ -255,7 +262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64171" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51424" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

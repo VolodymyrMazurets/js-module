@@ -6,9 +6,9 @@
   "scripts": {
     "serve": "parcel index.html --open",
     "dev": "parcel index.html --open",
-    "dev:all": "parcel index.html classes.html slick.html --open",
+    "dev:all": "parcel index.html classes.html slick.html ajax.html --open",
     "start": "parcel index.html --open",
-    "build": "parcel build index.html classes.html slick.html --no-source-maps --no-cache"
+    "build": "parcel build index.html classes.html slick.html ajax.html --no-source-maps --no-cache"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
