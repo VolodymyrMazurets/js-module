@@ -29,26 +29,27 @@ const getSearchedCoctails = async (query) => {
 };
 
 const renderCards = (data = []) => {
-    if (data.length) {
-  cards.innerHTML = data
-    .map(({ strDrink, strDrinkThumb, strInstructions }) => {
-      return `
+  if (data.length) {
+    cards.innerHTML = data
+      .map(({ strDrink, strDrinkThumb, strInstructions }) => {
+        return `
       <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m">
                 <h3 class="uk-card-title">${strDrink}</h3>
                 <img data-src="${strDrinkThumb}" width="100" height="100" alt="" uk-img>
                 <p>${strInstructions}</p>
             </div>
       `;
-    })
-    .join("");
-    }
+      })
+      .join("");
+  }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const randomCoctail = await getRandomCoctail();
+  const { drinks } = await getRandomCoctail();
+  renderCards(drinks);
 
   userInput.addEventListener("input", async (e) => {
-    const res = await getSearchedCoctails(e.target.value);
-    renderCards(res.drinks);
+    const { drinks } = await getSearchedCoctails(e.target.value);
+    renderCards(drinks);
   });
 });

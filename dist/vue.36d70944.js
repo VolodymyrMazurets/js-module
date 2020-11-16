@@ -195,173 +195,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/js-cookie/src/js.cookie.js":[function(require,module,exports) {
-var define;
-/*!
- * JavaScript Cookie v2.2.1
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-;(function (factory) {
-	var registeredInModuleLoader;
-	if (typeof define === 'function' && define.amd) {
-		define(factory);
-		registeredInModuleLoader = true;
-	}
-	if (typeof exports === 'object') {
-		module.exports = factory();
-		registeredInModuleLoader = true;
-	}
-	if (!registeredInModuleLoader) {
-		var OldCookies = window.Cookies;
-		var api = window.Cookies = factory();
-		api.noConflict = function () {
-			window.Cookies = OldCookies;
-			return api;
-		};
-	}
-}(function () {
-	function extend () {
-		var i = 0;
-		var result = {};
-		for (; i < arguments.length; i++) {
-			var attributes = arguments[ i ];
-			for (var key in attributes) {
-				result[key] = attributes[key];
-			}
-		}
-		return result;
-	}
-
-	function decode (s) {
-		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-	}
-
-	function init (converter) {
-		function api() {}
-
-		function set (key, value, attributes) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			attributes = extend({
-				path: '/'
-			}, api.defaults, attributes);
-
-			if (typeof attributes.expires === 'number') {
-				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
-			}
-
-			// We're using "expires" because "max-age" is not supported by IE
-			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
-			try {
-				var result = JSON.stringify(value);
-				if (/^[\{\[]/.test(result)) {
-					value = result;
-				}
-			} catch (e) {}
-
-			value = converter.write ?
-				converter.write(value, key) :
-				encodeURIComponent(String(value))
-					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-
-			key = encodeURIComponent(String(key))
-				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
-				.replace(/[\(\)]/g, escape);
-
-			var stringifiedAttributes = '';
-			for (var attributeName in attributes) {
-				if (!attributes[attributeName]) {
-					continue;
-				}
-				stringifiedAttributes += '; ' + attributeName;
-				if (attributes[attributeName] === true) {
-					continue;
-				}
-
-				// Considers RFC 6265 section 5.2:
-				// ...
-				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
-				//     character:
-				// Consume the characters of the unparsed-attributes up to,
-				// not including, the first %x3B (";") character.
-				// ...
-				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
-			}
-
-			return (document.cookie = key + '=' + value + stringifiedAttributes);
-		}
-
-		function get (key, json) {
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			var jar = {};
-			// To prevent the for loop in the first place assign an empty array
-			// in case there are no cookies at all.
-			var cookies = document.cookie ? document.cookie.split('; ') : [];
-			var i = 0;
-
-			for (; i < cookies.length; i++) {
-				var parts = cookies[i].split('=');
-				var cookie = parts.slice(1).join('=');
-
-				if (!json && cookie.charAt(0) === '"') {
-					cookie = cookie.slice(1, -1);
-				}
-
-				try {
-					var name = decode(parts[0]);
-					cookie = (converter.read || converter)(cookie, name) ||
-						decode(cookie);
-
-					if (json) {
-						try {
-							cookie = JSON.parse(cookie);
-						} catch (e) {}
-					}
-
-					jar[name] = cookie;
-
-					if (key === name) {
-						break;
-					}
-				} catch (e) {}
-			}
-
-			return key ? jar[key] : jar;
-		}
-
-		api.set = set;
-		api.get = function (key) {
-			return get(key, false /* read as raw */);
-		};
-		api.getJSON = function (key) {
-			return get(key, true /* read as json */);
-		};
-		api.remove = function (key, attributes) {
-			set(key, '', extend(attributes, {
-				expires: -1
-			}));
-		};
-
-		api.defaults = {};
-
-		api.withConverter = init;
-
-		return api;
-	}
-
-	return init(function () {});
-}));
-
-},{}],"node_modules/uikit/dist/js/uikit.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/uikit/dist/js/uikit.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /*! UIkit 3.5.9 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
@@ -31703,150 +31537,127 @@ var define;
   }
 }.call(this));
 
-},{"buffer":"node_modules/buffer/index.js"}],"js/helpers/storage.js":[function(require,module,exports) {
+},{"buffer":"node_modules/buffer/index.js"}],"js/http/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.storageService = exports.StorageService = void 0;
-
-class StorageService {
-  constructor() {
-    this.alias = {
-      todos: "todos"
-    };
-  }
-
-  get todos() {
-    console.log("getter");
-    const data = localStorage.getItem(this.alias.todos);
-
-    if (typeof data === "string") {
-      return JSON.parse(data);
-    }
-  }
-
-  set todos(todos) {
-    console.log("setter", todos);
-
-    if (todos) {
-      localStorage.setItem(this.alias.todos, JSON.stringify(todos));
-    } else {
-      localStorage.removeItem(this.alias.todos);
-    }
-  }
-
-}
-
-exports.StorageService = StorageService;
-const storageService = new StorageService();
-exports.storageService = storageService;
-},{}],"js/helpers/index.js":[function(require,module,exports) {
+exports.coctailsUrls = exports.urls = exports.BASE_URL = void 0;
+const BASE_URL = "https://jsonplaceholder.typicode.com";
+exports.BASE_URL = BASE_URL;
+const BASE_COCTAILS_URL = "https://www.thecocktaildb.com/api/json/v1";
+const api_key = '1';
+const urls = {
+  posts: `${BASE_URL}/posts`
+};
+exports.urls = urls;
+const coctailsUrls = {
+  random: `${BASE_COCTAILS_URL}/${api_key}/random.php`,
+  search: `${BASE_COCTAILS_URL}/${api_key}/search.php`
+};
+exports.coctailsUrls = coctailsUrls;
+},{}],"js/vue-page/vueData.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _storage = require("./storage");
-
-Object.keys(_storage).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _storage[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _storage[key];
-    }
-  });
-});
-},{"./storage":"js/helpers/storage.js"}],"index.js":[function(require,module,exports) {
+exports.data = void 0;
+const data = {
+  searchQuery: '',
+  randomCoctail: null,
+  coctails: []
+};
+exports.data = data;
+},{}],"js/vue.js":[function(require,module,exports) {
 "use strict";
 
 require("uikit/dist/css/uikit.min.css");
 
-require("./styles/style.scss");
-
-var _jsCookie = _interopRequireDefault(require("js-cookie"));
+require("../styles/style.scss");
 
 var _uikit = _interopRequireDefault(require("uikit"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
-var _helpers = require("./js/helpers");
+var _http = require("./http");
+
+var _vueData = require("./vue-page/vueData");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(function () {
-  const findElement = element => document.getElementById(element);
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-  const input = findElement("title");
-  const textarea = findElement("description");
-  const button = findElement("create-todo");
-  const form = findElement("form");
-  const todosWraper = findElement("todos");
-  let todos = [];
+const app = new Vue({
+  el: "#app",
+  data: _vueData.data,
+  methods: {
+    getRandomCoctail() {
+      return _asyncToGenerator(function* () {
+        try {
+          const res = yield fetch(_http.coctailsUrls.random);
+          const parsedRes = yield res.json();
 
-  const getTodos = () => {
-    const testCookies = _jsCookie.default.get("todos");
+          _uikit.default.notification({
+            message: "Data loaded successfuly",
+            status: "success"
+          });
 
-    console.log("cookies test", testCookies);
-    const res = _helpers.storageService.todos;
-    todos = [...res];
-  };
+          return parsedRes;
+        } catch (error) {
+          _uikit.default.notification({
+            message: error,
+            status: "danger"
+          });
+        }
+      })();
+    },
 
-  const updateTodos = () => {
-    _helpers.storageService.todos = todos;
+    getSearchedCoctails() {
+      var _this = this;
 
-    _jsCookie.default.set("todos", todos);
-  };
+      return _asyncToGenerator(function* () {
+        if (!_this.searchQuery) {
+          _this.coctails = [];
+        } else {
+          try {
+            const res = yield fetch(`${_http.coctailsUrls.search}?s=${_this.searchQuery}`);
+            const parsedRes = yield res.json();
+            _this.coctails = yield parsedRes.drinks;
+          } catch (error) {
+            _uikit.default.notification({
+              message: error,
+              status: "danger"
+            });
+          }
+        }
+      })();
+    },
 
-  const renderTodosList = () => {
-    todosWraper.innerHTML = todos.map(item => {
-      return ` 
-          <div class="uk-card uk-card-default uk-card-body uk-margin">
-          <input class="uk-checkbox todo-input" type="checkbox" ${item.checked ? "checked" : ""}>
-                <label class="uk-h4 todo-label">${item.title} - ${item.descr}</label>
-                   
-            </div>
-          `;
-    }).join("");
-  };
+    debouncedCoctailSearch() {
+      _lodash.default.debounce(this.getSearchedCoctails(), 500);
+    }
 
-  const checkInputs = () => !input.value.length || !textarea.value.length ? button.setAttribute("disabled", "true") : button.removeAttribute("disabled");
+  },
 
-  input.oninput = () => checkInputs();
+  created() {
+    var _this2 = this;
 
-  textarea.oninput = () => checkInputs();
+    return _asyncToGenerator(function* () {
+      const data = yield _this2.getRandomCoctail();
+      _this2.randomCoctail = data.drinks[0];
+    })();
+  },
 
-  form.onsubmit = event => {
-    event.preventDefault();
-    const title = input.value;
-    const descr = textarea.value;
-    todos.push({
-      id: todos.length,
-      title,
-      descr,
-      checked: false
-    });
-    input.value = "";
-    textarea.value = "";
-    updateTodos();
-    renderTodosList();
+  watch: {
+    searchQuery() {
+      update: this.getSearchedCoctails();
+    }
 
-    _uikit.default.notification({
-      message: "Todo was created"
-    });
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    getTodos();
-    checkInputs();
-    renderTodosList();
-  });
-})();
-},{"uikit/dist/css/uikit.min.css":"node_modules/uikit/dist/css/uikit.min.css","./styles/style.scss":"styles/style.scss","js-cookie":"node_modules/js-cookie/src/js.cookie.js","uikit":"node_modules/uikit/dist/js/uikit.js","lodash":"node_modules/lodash/lodash.js","./js/helpers":"js/helpers/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  }
+});
+},{"uikit/dist/css/uikit.min.css":"node_modules/uikit/dist/css/uikit.min.css","../styles/style.scss":"styles/style.scss","uikit":"node_modules/uikit/dist/js/uikit.js","lodash":"node_modules/lodash/lodash.js","./http":"js/http/index.js","./vue-page/vueData":"js/vue-page/vueData.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32050,5 +31861,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/js-module-cobra.e31bb0bc.js.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/vue.js"], null)
+//# sourceMappingURL=/vue.36d70944.js.map

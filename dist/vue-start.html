@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<link rel="stylesheet" href="/vue.36d70944.css"></head>
+
+<body>
+    <div class="uk-container">
+        <h1>Vue JS</h1>
+        <div id="app">
+            <div class="uk-container">
+                <div class="uk-margin">
+                    <input v-model="searchQuery" class="uk-input" type="text" placeholder="Input for search">
+                </div>
+                <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" uk-grid="">
+                    <div v-if="!((coctails || []).length)">
+                        <div class="uk-card uk-card-default uk-card-body">
+                            <img :data-src="randomCoctail?.strDrinkThumb" width="200" height="200" alt="" uk-img="">
+                            <h2>{{randomCoctail?.strDrink}}</h2>
+                        </div>
+                    </div>
+                    <div v-else="" v-for="item in coctails" :key="item.idDrink">
+                            <div class="uk-card uk-card-default uk-card-body">
+                                <img :data-src="item.strDrinkThumb" width="200" height="200" alt="" uk-img="">
+                                <h4>{{item.strDrink}}</h4>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/vue.36d70944.js"></script>
+</body>
+
+</html>

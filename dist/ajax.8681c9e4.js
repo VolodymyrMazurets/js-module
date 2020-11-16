@@ -12350,11 +12350,16 @@ const renderCards = (data = []) => {
 };
 
 document.addEventListener("DOMContentLoaded", _asyncToGenerator(function* () {
-  const randomCoctail = yield getRandomCoctail();
+  const {
+    drinks
+  } = yield getRandomCoctail();
+  renderCards(drinks);
   userInput.addEventListener("input", (() => {
     var _ref4 = _asyncToGenerator(function* (e) {
-      const res = yield getSearchedCoctails(e.target.value);
-      renderCards(res.drinks);
+      const {
+        drinks
+      } = yield getSearchedCoctails(e.target.value);
+      renderCards(drinks);
     });
 
     return function (_x2) {
@@ -12390,7 +12395,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51424" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49636" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
